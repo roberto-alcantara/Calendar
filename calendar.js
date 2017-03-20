@@ -1,4 +1,7 @@
-function Calendar(date=new Date()) {
+function Calendar(options) {
+
+    var date = (options.date) ? options.date : new Date();
+    var contentDay = options.contentDay;
 
     date.setDate(1);
 
@@ -9,7 +12,9 @@ function Calendar(date=new Date()) {
         for(var i = 0; i < 5; i++) {
             var week = new Array(7);
             for(var j = 0; j < 7; j++) {
-                week[j] = new Date(date);
+                week[j] = {};
+                week[j].date = new Date(date);
+                week[j].content = (contentDay) ? contentDay(week[j].date) : null;
                 date.setDate(date.getDate()+1);
             }
             c.days[i] = week;
